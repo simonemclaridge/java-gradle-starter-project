@@ -34,11 +34,23 @@ public class App extends Application {
         Application.launch(args);
     }
 
+    //initialize the map with a basemap and set the designated area of interest to Vancouver, BC
+    //add the map to the map view
+    private void setupMap() {
+        if (mapView != null) {
+            Basemap.Type basemapType = Basemap.Type.LIGHT_GRAY_CANVAS_VECTOR;
+            double latitude = 49.26038;
+            double longitude = -123.11336;
+            int levelOfDetail = 12;
+            ArcGISMap map = new ArcGISMap(basemapType, latitude, longitude, levelOfDetail);
+            mapView.setMap(map);
+        }
+    }
     @Override
     public void start(Stage stage) {
 
         // set the title and size of the stage and show it
-        stage.setTitle("My Map App");
+        stage.setTitle("Starter App");
         stage.setWidth(800);
         stage.setHeight(700);
         stage.show();
@@ -52,11 +64,7 @@ public class App extends Application {
         mapView = new MapView();
         stackPane.getChildren().add(mapView);
 
-        // create an ArcGISMap with the default imagery basemap
-        ArcGISMap map = new ArcGISMap(Basemap.createImagery());
-
-        // display the map by setting the map on the map view
-        mapView.setMap(map);
+        setupMap();
     }
 
     /**
